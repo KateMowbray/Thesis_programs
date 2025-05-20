@@ -15,16 +15,20 @@ Figure 17: These simple plots show information about the Fermi acceleration cont
 
 Figure 19: This is also produced using scattercol4.pro. To obtain test particle orbits in fields that collapse faster it is necessary to change the variables esp and cc on lines 111 and 112 of global_mod.f90.
 
-Figures 38, 39, 46: These figures uses manyplots.pro to show multiple energy profiles at once for particles in the 3D CMT with a braking jet. The lower bound for x and z in newinput.dat is -1.2e7 and the upper bound is -0.001e7. This means that particles start very close to but not at x=0 or z=0. This prevents a singularity in the terms dr/dx or drdz found in CMTfields_mod.f90, which would become 0/0 with these numbers.
+Figures 38, 39, 46, 57, 58, 60, 67: These figures uses abenergies.pro to show multiple energy profiles at once for particles in the 3D CMT with a braking jet. The lower bound for x and z in newinput.dat is -1.2e7 and the upper bound is -0.001e7. This means that particles start very close to but not at x=0 or z=0. This prevents a singularity in the terms dr/dx or drdz found in CMTfields_mod.f90, which would become 0/0 with these numbers.
 
-Figures 41, 42, 49: These figures show how the energies of particles change with time by plotting ds.ke against ds.t, where the dataset is obained using ds = getrdata(n,/ke)
+Figures 41, 42, 49, 61, 63, 65: These figures show how the energies of particles change with time by plotting ds.ke against ds.t, where the dataset is obained using ds = getrdata(n,/ke)
 
-Figure 43: Similar to the scatter plots in the previous chapter, though this one uses abscatter.pro so that particles which escape early appear greyer. 
+Figures 43, 59: Similar to the scatter plots in the previous chapter, though these one uses abscatter.pro so that particles which escape early appear greyer (where applicable). 
 
-Figures 44, 45, 48: Particle trajectories (in the x-y plane) are shown by plotting ds.y against ds.x. 
+Figures 44, 45, 48, 62, 64, 66: Particle trajectories (in the x-y plane) are shown by plotting ds.y against ds.x. 
 
 Figure 47: Similar to Figures 38, 39 and 46, but with the pitch angle and z varied instead of x and z.
 
 Figure 50, Movies 1 and 2: 
 
-Figure 51: 
+Figures 51, 52, 53: These Figures are generated using jet_energy_v_pitch.pro which takes a datset and measures the final energy of each particle. These final energies are then plotted against a factor related to the initial conditions, in this case initial pitch angles.
+
+Figures 54, 55: Distributions of the final energies of particles are obtained using
+
+Figures 56: This plot of a large number of particle trajectories is obtained using manyplots.pro, which works similarly to abenergies.pro, but which can be used to plot trajectories (in the x-y plane) instead of energy against time. The grids have been added manually later.
