@@ -33,11 +33,26 @@ Figure 50, Movies 1 and 2: !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 
 Figures 51, 52, 53, 106, 107, 108, 109, 110: These Figures are generated using jet_energy_v_pitch.pro which takes a datset and measures the final energy of each particle. These final energies are then plotted against a factor related to the initial conditions, in this case initial pitch angles.
 
-Figures 54, 55: Distributions of the final energies of particles are obtained using!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+Figures 54, 55: Distributions of the final energies of particles are obtained using energy_bins.pro
 
 Figures 56: This plot of a large number of particle trajectories is obtained using manyplots.pro, which works similarly to abenergies.pro, but which can be used to plot trajectories (in the x-y plane) instead of energy against time. The grids have been added manually later.
 
 Chapter 4
+
+All estimates are found using either fermiguessfor.f90 or fermiguess3d.f90. I'll briefly summarise how initial conditions are specified and where variables can be changed.
+
+In lines 37-55 the initial conditions are defined by specifying a maximum and minimum as well as the numberof uniform steps taken between these values. If only one value for a given condition is used then the number of steps must be set to 1 and the relevant line must be adjusted in the do loops to avoid a singularity. For example if only one initial value of x is tested, then xsteps should be set to 1. After this the denominator of line 67 whould be set to xsteps rather than the value of (xsteps-1) which would be used if multiple initial x values were simulated.
+
+The variables which affect the speed and accuracy of the estimator are lised in Appendix B. Some of these are specified at the start of fermiguessfor.f90 and others are specified in their relevant subroutines. Since these variables are explained in the thesis I will only mention which lines they are specified on below:
+steps - line 33 (if a constant number of steps are used, if the value in Equation (70) is used instead then this equation is found on lines 86 and 87)
+looptopsteps - line 34
+looptoptol - line 35
+hfp - line 260
+hlptp - line 315
+hTiL - line 440
+hbet - line 789
+ht0 - line 494
+ndrift - lines 708 and 716 as an argument of driftevo
 
 Figure 69: Same process as Figure 19
 
