@@ -29,7 +29,7 @@ Figures 44, 45, 48, 62, 64, 66: Particle trajectories (in the x-y plane) are sho
 
 Figure 47: Similar to Figures 38, 39 and 46, but with the pitch angle and z varied instead of x and z.
 
-Figure 50, Movies 1 and 2: The frames used to make these movies (an example of which is given in Figure 50) are generated using CMTframegen.pro. Similar to the field line plotting routines, this program requires that the necessary field is specified in both this program and CMTODEINT.pro. When the type of fiel is chosen (2D without jet, twisted, with jet etc.) then lines 672 and 758 mustalso be changed to reflect this.
+Figure 50, Movies 1 and 2: The frames used to make these movies (an example of which is given in Figure 50) are generated using CMTframegen.pro. Similar to the field line plotting routines, this program requires that the necessary field is specified in both this program and CMTODEINT.pro. When the type of fiel is chosen (2D without jet, twisted, with jet etc.) then lines 563 and 649 mustalso be changed to reflect this.
 
 Figures 51, 52, 53, 106, 107, 108, 109, 110: These Figures are generated using jet_energy_v_pitch.pro which takes a datset and measures the final energy of each particle. These final energies are then plotted against a factor related to the initial conditions, in this case initial pitch angles.
 
