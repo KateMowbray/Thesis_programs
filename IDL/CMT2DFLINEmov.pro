@@ -35,7 +35,7 @@ colorflines=0 ; km: Set to 1 to colour field lines according to field strength
 eps=0.0000001
 Bzf=0.00
 h1=0.01     	    ; step size?
-string1='derivs_osc' ; km: This needs to match with string1 in CMTODEINT
+string1='derivs' ; km: This needs to match with string1 in CMTODEINT
 
 ;;----- pick initial conditions ------------
 ystart=dblarr(3)
