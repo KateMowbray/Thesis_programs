@@ -96,12 +96,6 @@ IMPLICIT NONE
    xee=(/(-2.0),2.0/)
    yee=(/0.0,8.0/)
    zee=(/(-20.0),20.0/)
-  ELSE IF ((str_cmp(FMOD, "CMTO")).OR.(str_cmp(FMOD, "cmto"))) THEN
-      ! km: oscillating CMT set up
-   CMTFLAG=.TRUE.
-   xee=(/(-2.0),2.0/)
-   yee=(/0.0,8.0/)
-   zee=(/(-20.0),20.0/)
   ELSE IF ((str_cmp(FMOD, "TEST")).OR.(str_cmp(FMOD, "test"))) THEN
       !test setup?
 ! km: added generic bounds for the test case so that it runs properly
