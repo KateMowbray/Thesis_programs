@@ -134,7 +134,7 @@ Bz=(dX0dX*dY0dY-dY0dX*dX0dY)*Bzf
 return, dydx
 end
 
-FUNCTION derivs2_5, x, y
+ derivs2_5, x, y
 common someothername, length, c1, Bzf, ttt
 ;------------------------------------------------------------------
 ;******************************************************************
@@ -201,99 +201,6 @@ Bz=((dY0dX*dZ0dY-dZ0dX*dY0dY)*(dA0dY0) - $
  dydx[2]=Bz/0.01
 
  
-return, dydx
-end
-
-FUNCTION derivs_osc, x, y
-common someothername, length, c1, bzf, ttt
-; -----------------------------------------------------------------
-;******************************************************************
-; right hand side of field line ODE for 2D oscillating field
-;******************************************************************
-!except=0
-;
-length = 1e7
-Lscl=1.0
-dydx = dblarr(3)
-Lx=Lscl
-Ly=Lscl
-Lz=Lscl
-c1=(-1.5)*1e5
-
-a3d=1.0
-
-v=1.0
-ydel=(-2.0);0.0
-Clin=0.3
-Cosc=0.035
-E=1.0
-
-; Choose this first option to collapse to about the same final configuration as not oscillating field
-; Sometimes collapses very quickly
-;Ft = ttt + sin(20*(ttt-1.05))/(8*(ttt-1.05)*(ttt-1.05)+8)*(1+tanh(ttt))/2
-
-; *****************************************************************
-
-; Choose this second option for a collapse with the same initial speed as not oscillating field
-; It doesn't collapse as far
-;Ft = 0.7*1.05+0.3*ttt+0.035*(sin(20*(ttt-1.05)))/((ttt-1.05)*(ttt-1.05)+1)
-;X0 = y[0]
-;Y0=0.4*Ft*alog(1+y[1]/0.4/Ft)*(1+tanh((y[1]-1)*0.9))/2 + $
-;   (1-tanh((y[1]-1)*0.9))/2*y[1]
-;Z0=y[2]
-
-;******************************************************************
-
-; This third option is an attempt to have an oscillating field like the above where lower loops
-; collapse first, mathcing coronal implosion picture
-
-Goft = Clin*(ttt-1.05) + Cosc*(sin(20*(ttt-1.05)))/(8*(ttt-1.05)*(ttt-1.05)+8)
-Hyt = (ydel+v*ttt-y[2])/E
-Ft = 1.05 + Goft*(tanh(Hyt)+1)/2.0
-
-dHdy = (-1.0)/E
-;dHdt = v/E
-
-;dGdt = Clin+Cosc*((20*cos(20*(ttt-1.05))-2*(ttt-1.05)*sin(20*(ttt-1.05)))/ $
-;       (8*(ttt-1.05)*(ttt-1.05)+8)/(8*(ttt-1.05)*(ttt-1.05)+8))
-
-dFdy = 0.5*Goft*sech(Hyt)*sech(Hyt)*dHdy
-
-X0 = y[0]
-Y0 = 0.4*Ft*alog(1+y[1]/0.4/Ft)*(1+tanh((y[1]-1)*0.9))/2 + $
-     (1-tanh((y[1]-1)*0.9))/2*y[1]
-Z0 = y[2]
-
-dA0dX0=32*c1*(Y0+1)*X0/((4*X0*X0-4*X0+1+4*Y0*Y0+8*Y0+4)*$
-                        (4*X0*X0+4*X0+1+4*Y0*Y0+8*Y0+4))
-dA0dY0=4*c1*(-4*X0*X0+1+4*Y0*Y0+8*Y0+4)/((4*X0*X0-4*X0+1+4*Y0*Y0+8*Y0+4)*$
-                                         (4*X0*X0+4*X0+1+4*Y0*Y0+8*Y0+4))
-
-dX0dX=1.0
-dX0dY=0.0
-dX0dZ=0.0
-
-dY0dX=0.0
-dY0dY=0.5*(1.0+tanh((y[1]/Lscl-1.0)*0.9))/(1.0+y[1]/Lscl/0.4/Ft)+ $
-      0.5*0.4*Ft*alog(1+y[1]/Lscl/0.4/Ft)*(1.0-tanh((y[1]/Lscl-1.0)*0.9)^2.0)*0.9 - $
-      0.5*(1.0-tanh((y[1]/Lscl-1.0)*0.9)^2.0)*0.9*y[1]/Lscl+0.5-0.5*tanh((y[1]/Lscl-1.0)*0.9) + $
-      dFdy*(0.5*(0.4*Ft)*alog(1.0+y[1]/Lscl/(0.4*Ft))* $
-      (1.0+tanh((y[1]/Lscl-1.0)*0.9))/Ft-0.5*y[1]/Lscl*$
-      (1.0+tanh((y[1]/Lscl-1.0)*0.9))/(Ft*(1.0+y[1]/(0.4*Ft))))
-dY0dZ=0.0
-
-dZ0dX=0.0
-dZ0dY=0.0
-dZ0dZ=1.0
-
-Bx=(dY0dY*dA0dY0 - dX0dY*dA0dX0)/length
-By=(-(dY0dX*dA0dY0 + dX0dX*dA0dX0))/length
-Bz = 0.0
-
-dydx[0] = Bx/0.01
-dydx[1] = By/0.01
-dydx[2] = Bz/0.01
-
 return, dydx
 end
 
@@ -461,18 +368,8 @@ sigma=4.0
 s=0.7
 
 r= SQRT(y[0]^2+y[2]^2)
-tttt=(ttt*10*3+305.0)/100.0
 
-;lilf = (1.0-tanh(ttt-tzero))/2.0
-
-b1=5.5
-b2=1.0
-b3=0.2
-b4=9.0
-
-fpt1=2*sin(ttt-b2)*sin(ttt-b2)/(1+b3*(ttt-b4)^2)
-fpt2=(1.0+tanh(ttt-b4))/2.0
-lilf = 0.5-(tanh(ttt-b1)-fpt1*fpt2)/2.0
+lilf = (1.0-tanh(ttt-tzero))/2.0
 
 lilg = 1-lilf
 F = (1.0-tanh(y[1]-yprm))/2.0
@@ -505,11 +402,8 @@ B0z = c1*(Z0/a1/a1/a1 - Z0/a2/a2/a2)
 ;print, "B0y = ", B0y
 ;print, "B0z = ", B0z
 
-;dlilfdt = (-sech(ttt-tzero)*sech(ttt-tzero))/2.0
+dlilfdt = (-sech(ttt-tzero)*sech(ttt-tzero))/2.0
 
-dfpt1dt = (2*sin(2*(ttt-b2))*(1.0+b3*(ttt-b4)^2)-4*b3*(sin(ttt-b2))^2*(ttt-b4))/(1+b3*(ttt-b4)^2)^2
-dfpt2dt = (sech(ttt-b4))^2/2.0
-dlilfdt = -((sech(ttt-b1))^2-dfpt1dt*fpt2-fpt1*dfpt2dt)/2.0
 
 dlilgdt = (-1.0)*dlilfdt
 dFdy = (-sech(y[1]-yprm)*sech(y[1]-yprm))/2.0
@@ -550,10 +444,7 @@ partdY0dx = y[1]*dphidx*sech(phi)*sech(phi)/2.0*lilf
 
 dY0dX = drdx*dY0dr + partdY0dx
 dY0dY = (1.0/(1.0+y[1]/s)*(1.0-F*G)+s*ALOG(1.0+y[1]/s)*(-dFdy*G)+F*G+ $
-        y[1]*dFdy*G+(1.0+tanh(phi))/2.0+y[1]*dphidy*sech(phi)*sech(phi)/2.0)*lilf+$;lilg
-        lilg*(0.5*(1.0+tanh((y[1]-1.0)*0.9))/(1.0+y[1]/(cc*tttt)^esp) + $ 
-              0.5*(cc*tttt)^esp*alog(1+y[1]/(cc*tttt)^esp)*(1.0-tanh((y[1]-1.0)*0.9)^2.0)*0.9 - $
-              0.5*(1.0-tanh((y[1]-1.0)*0.9)^2.0)*0.9*y[1]+0.5-0.5*tanh((y[1]-1.0)*0.9))
+        y[1]*dFdy*G+(1.0+tanh(phi))/2.0+y[1]*dphidy*sech(phi)*sech(phi)/2.0)*lilf+lilg
 
 dY0dZ = drdz*dY0dr
 
@@ -669,7 +560,7 @@ ytemp=rk4(ysav,dysav,xsav,hh,string1)
 
 x=xsav+hh
 
-dydx=derivs_osc(x,ytemp)
+dydx=derivs(x,ytemp)
 y=rk4(ytemp,dydx,x,hh,string1)
 
 ;-----------------------------------------------------------------
@@ -755,7 +646,7 @@ bb=dblarr(1)
 ; start integrating ODE
 ;-----------------------------------------------------------------
 for iit=1,maxsteps do begin
-	dydx = derivs_osc(x,y)
+	dydx = derivs(x,y)
 ;-----------------------------------------------------------------
 ; for monitoring accuracy; see Numerical Recipes for explanation
 ;-----------------------------------------------------------------
