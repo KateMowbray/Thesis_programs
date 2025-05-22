@@ -12,7 +12,6 @@ MODULE M_fields
   USE MHDp_fields, ONLY: MHDpFIELDS
   USE FR_fields, ONLY: FRFIELDS
   USE CMT_fields2half, ONLY: CMTfields2half
-  USE CMT_fieldsosc, ONLY: CMTFIELDSOSC
   
   IMPLICIT NONE
 
@@ -53,8 +52,6 @@ SUBROUTINE FIELDS(R,T,E,B,DBDX,DBDY,DBDZ,DBDT,DEDX,DEDY,DEDZ,DEDT,Vf,T1,T2)
       route=9
     ELSE IF ((str_cmp(FMOD, "CMT2")).OR.(str_cmp(FMOD, "cmt2"))) THEN
       route=10
-    ELSE IF ((str_cmp(FMOD, "CMTO")).OR.(str_cmp(FMOD, "cmto"))) THEN
-      route=11
     ELSE
       PRINT*, "FIELD SELECTOR MODULE: incorrect field choice, choose from:"
       PRINT*, "['l3d','l2d','sep','CMT','test','bour','FRE', 'NLFF', 'MHDp']"
@@ -81,8 +78,6 @@ SUBROUTINE FIELDS(R,T,E,B,DBDX,DBDY,DBDZ,DBDT,DEDX,DEDY,DEDZ,DEDT,Vf,T1,T2)
     CALL MHDpFIELDS(R,T,E,B,DBDX,DBDY,DBDZ,DBDT,DEDX,DEDY,DEDZ,DEDT,Vf)
   CASE(10)
     CALL CMTfields2half(R,T,E,B,DBDX,DBDY,DBDZ,DBDT,DEDX,DEDY,DEDZ,DEDT,Vf)
-  CASE(11)
-    CALL CMTfieldsosc(R,T,E,B,DBDX,DBDY,DBDZ,DBDT,DEDX,DEDY,DEDZ,DEDT,Vf)
 END SELECT
 
 
