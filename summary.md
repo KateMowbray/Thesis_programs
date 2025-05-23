@@ -8,7 +8,7 @@ Other changes include the measurements of particular energisation terms in r_rkd
 
 The remaining programs concern data visualisation, with scattercol4.pro giving the scatter plots showing the ratio of final to initial energies of particles against the ratio of final to initial field strength and the programs in the IDL folder being used to sketch 2D and 3D field lines for CMT models.
 
-Visualisation for the breaking jet model is done with manyplots.pro, which shows the energy profiles of a large number of particles and abscatter, which is similar to scattercol4, but grays out particles that escape early.
+Visualisation for the breaking jet model is done with manyplots.pro and abenergies.pro, which show the energy profiles of a large number of particles and abscatter, which is similar to scattercol4, but grays out particles that escape early.
 
 These files should be used with the code in the above link (which also contains a manual for the code), with files from this repository being used when they have the same name as files in that repository. The README for the linked repository had been included here as jtREADME.md.
 
